@@ -25,6 +25,7 @@ class PostController extends Controller
 
             return response()->json([
                 'message' => 'Resource not found',
+                'error' => 404
             ], 404);
             
         }
@@ -56,6 +57,7 @@ class PostController extends Controller
             
             return response()->json([
                 'message' => $th->getMessage(),
+                'error' => 400
             ], 400);
         }
 
@@ -78,6 +80,7 @@ class PostController extends Controller
 
             return response()->json([
                'message' => 'Resource not found',
+               'error' => 404
                ], 404);
             
 
@@ -85,6 +88,7 @@ class PostController extends Controller
 
             return response()->json([
                 'message' => $th->getMessage(),
+                'error' => 400
             ], 400);
         }
     }
@@ -117,6 +121,7 @@ class PostController extends Controller
 
             return response()->json([
                'message' => 'Resource not found',
+               'error' => 404
                ], 404);
 
             
@@ -124,6 +129,7 @@ class PostController extends Controller
 
             return response()->json([
                 'message' => $th->getMessage(),
+                'error' => 400
             ], 400);
         }
     }
@@ -145,17 +151,20 @@ class PostController extends Controller
                 return response()->json([
                     'message' => 'Resource deleted successfully',
                     'id' => $post->id,
+
                 ], 200);
             }
 
             return response()->json([
               'message' => 'Resource not found',
+              'error' => 404
               ], 404);
 
         } catch (\Throwable $th) {
             return response()->json([
                 'message' => $th->getMessage(),
-            ], 404);
+                'error' => 400
+            ], 400);
         }
     }
 }
