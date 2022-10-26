@@ -1,64 +1,154 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# CRUD API
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
 
-## About Laravel
+This app is all about a CRUD API using Laravel.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+The core functionality of the API:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+1. Display a list of posts.
+2. Delete a specific post.
+3. Add a brand new post.
+4. Update an existing post.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+## Getting started
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Step 1: Required software installation
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+For the required software installation, you just have to open your terminal on the current folder and type in `composer install`
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### Step 2: Set up database
 
-### Premium Partners
+1. Create a brand new database with the name: `restapilaravel`
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+2. Then in terminal run:
 
-## Contributing
+```bash
+php artisan migrate:fresh
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Step 3: Start the server
 
-## Code of Conduct
+Start the Server
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+php artisan serve
+```
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-## License
+## API documentation
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Getting started
+
+- Base URL: At present this app can only be run locally and is not hosted as a base URL. The backend app is hosted at the default, `http://127.0.0.1:8000/`; 
+- Authentication: This version of the application does not require authentication or API keys.
+
+### Error Handling
+
+Errors are returned as JSON objects in the following format:
+
+```json
+{
+    "error": 404,
+    "message": "Resource not found"
+}
+```
+The API will return three error types when requests fail:
+
+- 404: Resource Not Found
+- 400: Bad request 
+- 405: Method not allowed
+
+### Endpoints
+
+#### GET /posts
+
+- Fetches a list of posts from the database.
+- Request Arguments: None
+- Returns: A JSON object with a single key, data, that contains an array of posts.
+
+`curl http://127.0.0.1:8000/posts`
+
+```json
+{
+  "data": [
+    {
+      "id": 1,
+      "title": "Brand new title",
+      "content": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.",
+      "created_at": "2022-10-26T15:31:19.000000Z",
+      "updated_at": "2022-10-26T15:31:19.000000Z"
+    }
+  ]
+}
+```
+
+
+#### GET /posts/{id}
+
+- Get a specific post based on his id
+- Return: A JSON object with a single key, data, that contains a specific post.
+- Request Arguments: None
+
+`curl http://127.0.0.1:8000/posts/1`
+
+```json
+{
+  "data": {
+    "id": 1,
+    "title": "Brand new title",
+    "content": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.",
+    "created_at": "2022-10-26T15:31:19.000000Z",
+    "updated_at": "2022-10-26T15:31:19.000000Z"
+  }
+}
+```
+
+#### POST /posts
+
+- Create a brand new post
+- Request Arguments: Required arguments are: 'title' and 'content'.
+- Returns a success message and the id of the new post
+
+`curl http://127.0.0.1:8000/posts -X POST -H "Content-Type: application/json" -d '{"title":"A new title", "content":"It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."}'`
+
+```json
+{
+    "message": "Resource created successfully.",
+    "id": 2
+}
+```
+
+#### PATCH /posts/{id}
+
+- Update an existing post
+- Request Arguments: Required arguments are: 'title' and 'content'.
+- Returns a success message and the id of the updated post
+
+`curl http://127.0.0.1:8000/posts/1 -X PATCH -H "Content-Type: application/json" -d '{"title":"A new title", "content":"It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."}'`
+
+```json
+{
+    "message": "Resource updated successfully.",
+    "id": 2
+}
+```
+
+#### DELETE /posts/{id}
+
+- Deletes a specific post based on his id
+- Request arguments: None
+- Returns a success message and the id of the deleted question
+
+`curl -X DELETE http://127.0.0.1:8000/posts/2`
+
+```json
+{
+    "message": "Resource deleted successfully",
+    "id": 2
+}
+```
+
+
